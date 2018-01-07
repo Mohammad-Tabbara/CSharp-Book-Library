@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+
+<address>
+    Keep Loving Books<br />
+    Lebanon, Beirut, Burj abu hidar<br />
+    <abbr title="Phone">P:</abbr>
+    01 234 567
+</address>
+
+<address>
+    <strong>Support:</strong>   <a href="mailto:support@booklibrary.com.lb">support@booklibrary.com.lb</a><br />
+    <strong>Marketing:</strong> <a href="mailto:marketing@booklibrary.com.lb">marketing@booklibrary.com.lb</a>
+</address>
+
+<h3>@ViewBag.Message</h3>
+<form method="post">
+    <textarea name="message"></textarea>
+    @*<input type="text" name="message" />*@
+    <input type="submit" value="send" />
+</form>

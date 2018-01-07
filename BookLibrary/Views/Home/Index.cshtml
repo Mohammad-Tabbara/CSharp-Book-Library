@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Book Library</h1>
+    <p class="lead">A Book Renting Service.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Login</h2>
+        <p>
+            Login to your account to access all provided services.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Login", "Account")">Login &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Register</h2>
+        <p>Don't own an account yet. Register NOW.</p>
+        <p><a class="btn btn-default" href="@Url.Action("Register", "Account")">Register &raquo;</a></p>
+    </div>
+</div>
