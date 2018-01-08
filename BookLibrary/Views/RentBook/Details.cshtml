@@ -1,0 +1,32 @@
+﻿@model BookLibrary.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h4>Book</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BookName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BookName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RentPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RentPrice)
+            </dd>
+
+        </dl>
+    </div>
+</div>

@@ -10,7 +10,13 @@ namespace BookLibrary.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("../RentBook/Details");
+            }else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()

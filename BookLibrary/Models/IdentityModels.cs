@@ -29,5 +29,8 @@ namespace BookLibrary.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Book>  Book { get; set; }
+        public DbSet<UserBookRelation> UserBookRelation { get; set; }
     }
 }

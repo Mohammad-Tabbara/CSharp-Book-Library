@@ -155,6 +155,11 @@ namespace BookLibrary.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddClaim(user.Id,new Claim(ClaimTypes.GivenName,model.FirstName));
+                    var db = new ApplicationDbContext();
+                    var userBookRelation = new UserBookRelation { ApplicationUserId = user.Id, BookId = -1 };
+                    db.UserBookRelation.Add(userBookRelation);
+                    db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

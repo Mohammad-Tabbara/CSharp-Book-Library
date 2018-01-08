@@ -65,6 +65,14 @@ namespace BookLibrary.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -108,5 +116,17 @@ namespace BookLibrary.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class rentBookViewModel
+    {
+        [Required]
+        [RegularExpression(@"\d{1,20}", ErrorMessage = "Book name is too long, should be shorter than 20 char long.")]
+        [Display(Name = "Book Name:")]
+        public string BookName { get; set; }
+        [Required]
+        [Display(Name = "Book Rent Price:")]
+        [DataType(DataType.Currency)]
+        public decimal RentPrice { get; set; }
     }
 }
