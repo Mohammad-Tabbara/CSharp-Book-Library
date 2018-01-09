@@ -21,7 +21,6 @@ namespace BookLibrary.Models
 
         public virtual ApplicationUser User { get; set; }
 
-        [Required]
         public string ApplicationUserId { get; set; }
     }
 }

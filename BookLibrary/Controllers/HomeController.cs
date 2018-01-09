@@ -12,7 +12,7 @@ namespace BookLibrary.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("../RentBook/Details");
+                return RedirectToAction("../RentBook/");
             }else
             {
                 return View();

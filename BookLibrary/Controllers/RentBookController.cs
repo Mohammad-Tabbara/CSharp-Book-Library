@@ -1,5 +1,6 @@
 ﻿using BookLibrary.Models;
 using BookLibrary.Services;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,28 @@ namespace BookLibrary.Controllers
 {
     public class RentBookController : Controller
     {
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public string NULL { get; private set; }
+
         // GET: RentBook
         public ActionResult Index()
         {
-            return View();
+            return View(db.Book.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminList()
+        {
+            return View(db.Book.ToList());
         }
 
         [Authorize]
         // GET: RentBook/Details
-        public ActionResult Details()
+        public ActionResult Details(int id)
         {
-            var rentBook = new Book { BookName="King Arther", RentPrice=0.5m };
+            var rentBook = db.Book.Where(b => b.Id == id).First();
             return View(rentBook);
         }
 
@@ -38,9 +50,9 @@ namespace BookLibrary.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
+
                 var service = new BookService(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
-                service.CreateBook(collection["BookName"],(Decimal.Parse(collection["RentPrice"])));
+                service.CreateBook(collection["BookName"],(Convert.ToDecimal(collection["RentPrice"])));
                 return RedirectToAction("Index");
             }
             catch
@@ -49,12 +61,44 @@ namespace BookLibrary.Controllers
             }
         }
 
+        [Authorize]
+        public ActionResult Book(int id)
+        {
+            var userId = User.Identity.GetUserId();
+            var oldBookId = db.UserBookRelation.Where(u => u.ApplicationUserId == userId).First().BookId;
+            string bookUserId = null;
+            try
+            {
+                if (db.Book.Where(b => b.Id == oldBookId).Count() != 0)
+                {
+                    bookUserId = db.Book.Where(b => b.Id == id).First().ApplicationUserId;
+                    if (bookUserId != userId)
+                    {
+                        db.Book.Where(b => b.Id == oldBookId).First().ApplicationUserId = null;
+                    }
+                }
+                if (bookUserId == null || bookUserId == userId )
+                {
+                    db.Book.Where(b => b.Id == id).First().ApplicationUserId = userId;
+                    db.UserBookRelation.Where(u => u.ApplicationUserId == userId).First().BookId = id;
+                    db.SaveChanges();
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+                return Content("Book Already Rented By someone Else.");
+            }
+            catch
+            {
+                return Content("Failed to Book Contact Support");
+            }
+        }
+        [Authorize(Roles = "Admin")]
         // GET: RentBook/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: RentBook/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
@@ -70,11 +114,14 @@ namespace BookLibrary.Controllers
                 return View();
             }
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: RentBook/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var book = db.Book.Where(b => b.Id == id).First();
+            db.Book.Remove(book);
+            db.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // POST: RentBook/Delete/5
