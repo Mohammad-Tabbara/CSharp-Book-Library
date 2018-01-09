@@ -19,7 +19,11 @@ namespace BookLibrary.Models
         [DataType(DataType.Currency)]
         public decimal RentPrice { get; set; }
 
+        public string CreatedAt { get; set; }
+
+        public string UpdatedAt { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual UserBookRelation UserBookRelation { get; set; }
 
         public string ApplicationUserId { get; set; }
     }

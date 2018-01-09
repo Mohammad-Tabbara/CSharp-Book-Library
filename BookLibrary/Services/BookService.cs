@@ -16,7 +16,7 @@ namespace BookLibrary.Services
         }
         public void CreateBook(string bookName, decimal rentPrice)
         {
-            var book = new Book { BookName= bookName, RentPrice = rentPrice};
+            var book = new Book { BookName= bookName, RentPrice = rentPrice, CreatedAt = DateTime.Now.ToString(), UpdatedAt = DateTime.Now.ToString() };
             db.Book.Add(book);
             db.SaveChanges();
         }

@@ -5,8 +5,10 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace BookLibrary.Controllers
 {
@@ -17,11 +19,25 @@ namespace BookLibrary.Controllers
 
         public string NULL { get; private set; }
 
+        [Authorize]
         // GET: RentBook
         public ActionResult Index()
         {
-            return View(db.Book.ToList());
+             return View(db.Book.ToList());
         }
+
+        //public static bool IsAdministrator()
+        //{
+        //    string[] rolesuserbelongto = Roles.GetRolesForUser();
+        //    for(int i = 0; i<rolesuserbelongto.Count();i++)
+        //    {
+        //        if(rolesuserbelongto[i] == "Admin")
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    return false;
+        //}
 
         [Authorize(Roles = "Admin")]
         public ActionResult AdminList()
@@ -81,6 +97,7 @@ namespace BookLibrary.Controllers
                 {
                     db.Book.Where(b => b.Id == id).First().ApplicationUserId = userId;
                     db.UserBookRelation.Where(u => u.ApplicationUserId == userId).First().BookId = id;
+                    db.UserBookRelation.Where(u => u.ApplicationUserId == userId).First().UpdatedAt = DateTime.Now.ToString();
                     db.SaveChanges();
                     return Redirect(Request.UrlReferrer.ToString());
                 }
@@ -106,7 +123,11 @@ namespace BookLibrary.Controllers
             try
             {
                 // TODO: Add update logic here
-
+                var book = db.Book.Where(b => b.Id == id).First();
+                book.BookName = collection["BookName"]; 
+                book.RentPrice = Convert.ToDecimal(collection["RentPrice"]);
+                book.UpdatedAt = DateTime.Now.ToString();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

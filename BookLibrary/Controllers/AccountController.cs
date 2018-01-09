@@ -157,7 +157,7 @@ namespace BookLibrary.Controllers
                 {
                     UserManager.AddClaim(user.Id,new Claim(ClaimTypes.GivenName,model.FirstName));
                     var db = new ApplicationDbContext();
-                    var userBookRelation = new UserBookRelation { ApplicationUserId = user.Id, BookId = -1 };
+                    var userBookRelation = new UserBookRelation { ApplicationUserId = user.Id,FirstName = model.FirstName,LastName = model.LastName, BookId = -1, CreatedAt = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ssTZD"), UpdatedAt = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ssTZD") };
                     db.UserBookRelation.Add(userBookRelation);
                     db.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
