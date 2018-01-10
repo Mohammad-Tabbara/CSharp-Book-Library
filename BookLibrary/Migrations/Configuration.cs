@@ -25,6 +25,7 @@ namespace BookLibrary.Migrations
             {
                 var user = new ApplicationUser { UserName = "admin@bookstore.com", Email = "admin@bookstore.com" };
                 userManager.Create(user, "PassW0rd");
+                context.UserBookRelation.Add(new UserBookRelation { ApplicationUserId = user.Id, BookId = -1, FirstName = "Admin", LastName = "Admin", CreatedAt=DateTime.Now.ToString(),UpdatedAt= DateTime.Now.ToString()});
                 //var service = 
                 context.Roles.AddOrUpdate(r => r.Name, new IdentityRole { Name = "Admin"});
                 context.SaveChanges();

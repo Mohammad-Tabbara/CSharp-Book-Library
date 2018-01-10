@@ -32,5 +32,6 @@ namespace BookLibrary.Models
 
         public DbSet<Book>  Book { get; set; }
         public DbSet<UserBookRelation> UserBookRelation { get; set; }
+
     }
 }

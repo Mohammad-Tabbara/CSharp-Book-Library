@@ -4,16 +4,12 @@
     ViewBag.Title = "AdminList";
 }
 
-<script src="~/Scripts/jquery-1.7.2.js"></script>
-<script src="~/Scripts/DataTable.js"></script>
-<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
-<link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.css">
 <h2>AdminList</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Student List", "../Student/Index") | @Html.ActionLink("Create New", "Create")
 </p>
-<table id="datatable" class="display" cellspacing="0" width="100%">
+<table class="table table-striped" style="width:100%">
     <tr>
         <th>
             Student Email:
@@ -48,3 +44,7 @@
 }
 
 </table>
+
+<div>
+    @Html.ActionLink("Back", "Index")
+</div>

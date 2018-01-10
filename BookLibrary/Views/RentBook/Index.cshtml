@@ -3,13 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-<script src="~/Scripts/jquery-1.7.2.js"></script>
-<script src="~/Scripts/DataTable.js"></script>
-<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
-<link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.css">
 <h2>Index</h2>
 
-<table id="example" class="display" cellspacing="0" width="100%">
+<table class="table table-striped" style="width:100%">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.BookName)
@@ -50,5 +46,6 @@
 }
 
     @Html.ActionLink("Administrator List", "AdminList")
+
 
 </table>

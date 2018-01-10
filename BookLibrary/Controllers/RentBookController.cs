@@ -137,28 +137,13 @@ namespace BookLibrary.Controllers
         }
         [Authorize(Roles = "Admin")]
         // GET: RentBook/Delete/5
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             var book = db.Book.Where(b => b.Id == id).First();
             db.Book.Remove(book);
             db.SaveChanges();
             return Redirect(Request.UrlReferrer.ToString());
-        }
-
-        // POST: RentBook/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
