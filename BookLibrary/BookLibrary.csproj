@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201801090833244_Initial.Designer.cs">
       <DependentUpon>201801090833244_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801101407068_FifthCommitFix.cs" />
+    <Compile Include="Migrations\201801101407068_FifthCommitFix.Designer.cs">
+      <DependentUpon>201801101407068_FifthCommitFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Book.cs" />
@@ -520,6 +524,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801090833244_Initial.resx">
       <DependentUpon>201801090833244_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801101407068_FifthCommitFix.resx">
+      <DependentUpon>201801101407068_FifthCommitFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
